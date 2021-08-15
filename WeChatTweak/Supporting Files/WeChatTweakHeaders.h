@@ -11,6 +11,12 @@
 #import <objc/runtime.h>
 #import <objc/message.h>
 
+typedef NS_ENUM(NSUInteger, RevokeNotificationType) {
+    RevokeNotificationTypeFollow = 0,
+    RevokeNotificationTypeReceiveAll,
+    RevokeNotificationTypeDisable,
+};
+
 typedef NS_ENUM(unsigned int, MessageDataType) {
     MessageDataTypeText     = 1,
     MessageDataTypeImage    = 3,
@@ -21,6 +27,9 @@ typedef NS_ENUM(unsigned int, MessageDataType) {
     MessageDataTypePrompt   = 10000
 };
 
+static NSString * const WeChatTweakPreferenceAutoAuthKey = @"WeChatTweakPreferenceAutoAuthKey";
+static NSString * const WeChatTweakPreferenceRevokeNotificationTypeKey = @"WeChatTweakPreferenceRevokeNotificationTypeKey";
+
 @interface NSString (MD5)
 
 - (NSString *)md5String;
@@ -28,8 +37,6 @@ typedef NS_ENUM(unsigned int, MessageDataType) {
 @end
 
 @interface WeChat : NSObject
-
-@property(nonatomic) BOOL isAppTerminating;
 
 + (instancetype)sharedInstance;
 - (void)lock:(id)block;
@@ -65,6 +72,7 @@ typedef NS_ENUM(unsigned int, MessageDataType) {
 - (instancetype)initWithMsgType:(long long)arg1;
 - (BOOL)isSendFromSelf;
 - (id)getChatNameForCurMsg;
+- (id)savingImageFileNameWithLocalID;
 
 @end
 
@@ -107,33 +115,44 @@ typedef NS_ENUM(unsigned int, MessageDataType) {
 
 @end
 
-@interface MessageService: NSObject
-
-- (id)GetMsgData:(id)arg1 svrId:(unsigned long long)arg2;
-- (void)DelMsg:(id)arg1 msgList:(id)arg2 isDelAll:(BOOL)arg3 isManual:(BOOL)arg4;
-- (void)AddLocalMsg:(id)arg1 msgData:(id)arg2;
-- (void)notifyDelMsgOnMainThread:(id)arg1 msgData:(id)arg2;
-- (void)notifyAddRevokePromptMsgOnMainThread:(id)arg1 msgData:(id)arg2;
-
-@end
-
 @interface AccountService: NSObject
 
 - (BOOL)canAutoAuth;
 - (void)AutoAuth;
-- (void)onAuthOKOfUser:(id)arg1 withSessionKey:(id)arg2 withServerId:(id)arg3 autoAuthKey:(id)arg4 isAutoAuth:(BOOL)arg5;
-
-@end
-
-@interface LogoutCGI: NSObject
-
-- (void)sendLogoutCGIWithCompletion:(id)arg1;
 
 @end
 
 @interface MMAvatarService: NSObject
 
 - (NSString *)avatarCachePath;
+
+@end
+
+@interface MMSessionMgr: NSObject
+
+- (void)loadSessionData;
+- (void)loadBrandSessionData;
+
+@end
+
+@interface RevokeMsgItem : NSObject
+
+@property (nonatomic, assign) unsigned int createTime;
+@property (nonatomic, retain) NSString *svrId;
+@property (nonatomic, retain) NSString *content;
+
+@end
+
+@interface MMRevokeMsgDB : NSObject
+
+- (BOOL)insertRevokeMsg:(id)msg;
+- (id)getRevokeMsg:(NSString *)svrId;
+
+@end
+
+@interface MMRevokeMsgService : NSObject
+
+@property (nonatomic, strong) MMRevokeMsgDB *db;
 
 @end
 
@@ -171,5 +190,21 @@ typedef NS_ENUM(unsigned int, MessageDataType) {
 @interface MMImageMessageCellView : MMMessageCellView
 
 @property(retain, nonatomic) NSImage *displayedImage;
+
+@end
+
+@interface MMService : NSObject
+
+@end
+
+@interface EmoticonMgr : MMService
+
+- (id)getEmotionDataWithMD5:(id)arg1;
+
+@end
+
+@interface NSDictionary (XMLDictionary)
+
++ (id)dictionaryWithXMLString:(id)arg1;
 
 @end

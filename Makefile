@@ -9,6 +9,7 @@ debug::
 	DYLD_INSERT_LIBRARIES=${FRAMEWORK_PATH}/${FRAMEWORK_NAME} ${APP_PATH}/${APP_NAME} &
 
 install::
+	@xattr -rd com.apple.quarantine . ;
 	@if ! [[ $EUID -eq 0 ]]; then\
     	echo "This script should be run using sudo or as the root user.";\
     	exit 1;\
@@ -19,6 +20,7 @@ install::
 	fi
 	@if ! [ -d "${FRAMEWORK_PATH}" ]; then\
 		echo "Can not find the framework, please build first.";\
+		echo "Or download the latest release zip: \033[33;32mhttps://github.com/Sunnyyoung/WeChatTweak-macOS/releases/latest\033[0m.";\
 		exit 1;\
 	fi
 	@if [ -f "${APP_PATH}/${DYLIB_NAME}" ]; then\
@@ -28,15 +30,18 @@ install::
 	@if [ -d "${APP_PATH}/${FRAMEWORK_PATH}" ]; then\
 		rm -rf ${APP_PATH}/${FRAMEWORK_PATH};\
 		cp -R ${FRAMEWORK_PATH} ${APP_PATH};\
+		chmod -R 755 ${APP_PATH}/${FRAMEWORK_PATH};\
 		echo "Framework found! Replace with new framework successfully!";\
 	else \
 		cp ${APP_PATH}/${APP_NAME} ${APP_PATH}/${BACKUP_NAME};\
 		cp -R ${FRAMEWORK_PATH} ${APP_PATH};\
+		chmod -R 755 ${APP_PATH}/${FRAMEWORK_PATH};\
 		./insert_dylib @executable_path/${FRAMEWORK_PATH}/${FRAMEWORK_NAME} ${APP_PATH}/${APP_NAME} ${APP_PATH}/${APP_NAME} --all-yes;\
 		echo "Install successfully!";\
 	fi
 
 uninstall::
+	@xattr -rd com.apple.quarantine . ;
 	@if ! [[ $EUID -eq 0 ]]; then\
     	echo "This script should be run using sudo or as the root user.";\
     	exit 1;\
@@ -53,7 +58,7 @@ uninstall::
 	@rm -rf ${APP_PATH}/${DYLIB_NAME};
 	@rm -rf ${APP_PATH}/${FRAMEWORK_PATH};
 	@mv ${APP_PATH}/${BACKUP_NAME} ${APP_PATH}/${APP_NAME};
-	@echo "Uninstall successfully";
+	@echo "Uninstall successfully!";
 
 clean::
 	rm -rf ${FRAMEWORK_PATH}

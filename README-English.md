@@ -6,6 +6,7 @@
 [![README](https://img.shields.io/badge/Telegram-WeChatTweak-brightgreen.svg)](https://t.me/joinchat/B0vW8kPU5OrwdC1qRbaqRA)
 [![Backers on Open Collective](https://opencollective.com/WeChatTweak-macOS/backers/badge.svg)](#backers)
 [![Sponsors on Open Collective](https://opencollective.com/WeChatTweak-macOS/sponsors/badge.svg)](#sponsors)
+[![GitHub release (latest by date and asset)](https://img.shields.io/github/downloads/Sunnyyoung/WeChatTweak-macOS/latest/WeChatTweak-macOS.zip?label=Download&logo=wechat&style=social)](https://github.com/Sunnyyoung/WeChatTweak-macOS/releases/latest/download/WeChatTweak-macOS.zip)
 
 A dynamic library tweak for WeChat macOS.
 
@@ -25,14 +26,16 @@ A dynamic library tweak for WeChat macOS.
 
 ## Feature
 
-- Prevent message revoked
+- Anti message revoked
   - Message list notification
   - System notification
   - Revoke message you sent
 - Multiple WeChat Instance
-  - Right click on the dock icon to login another WeChat account
+  - Launch from Dock menu
   - Run command: `open -n /Applications/WeChat.app`
-- URL type messages enhancement
+- Messages enhancement
+  - Support stickers exporting
+  - Support QRCode identifying
   - Support right-click copy link directly
   - Support opened by the system default browser directly
 - Auto login without authentication
@@ -40,20 +43,13 @@ A dynamic library tweak for WeChat macOS.
 - Alfred workflow support
 - Launchbar action support
 
-## Quick Start
+## Usage
 
-- `sudo make install` Install or Upgrade the dylib
-- `sudo make uninstall` Uninstall the dylib
-- open `WeChat.workflow` Install Alfred workflow
-
-## Documentation
-
-For more informations, please go to the [Wiki](https://github.com/Sunnyyoung/WeChatTweak-macOS/wiki).
-
-## Dependency
-
-- [JRSwizzle](https://github.com/rentzsch/jrswizzle)
-- [insert_dylib](https://github.com/Tyilo/insert_dylib)
+```bash
+$ cd WeChatTweak-macOS
+$ sudo make install   # Install or Upgrade the framework
+$ sudo make uninstall # Uninstall the framework
+```
 
 ## Reference
 

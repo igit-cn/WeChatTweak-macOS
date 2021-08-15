@@ -6,6 +6,7 @@
 [![README](https://img.shields.io/badge/Telegram-WeChatTweak-brightgreen.svg)](https://t.me/joinchat/B0vW8kPU5OrwdC1qRbaqRA)
 [![Backers on Open Collective](https://opencollective.com/WeChatTweak-macOS/backers/badge.svg)](#backers)
 [![Sponsors on Open Collective](https://opencollective.com/WeChatTweak-macOS/sponsors/badge.svg)](#sponsors)
+[![GitHub release (latest by date and asset)](https://img.shields.io/github/downloads/Sunnyyoung/WeChatTweak-macOS/latest/WeChatTweak-macOS.zip?label=下载&logo=wechat&style=social)](https://github.com/Sunnyyoung/WeChatTweak-macOS/releases/latest/download/WeChatTweak-macOS.zip)
 
 微信 macOS 客户端增强 Tweak 动态库。
 
@@ -30,9 +31,11 @@
   - 系统通知
   - 正常撤回自己发出的消息
 - 客户端无限多开
-  - 右键 dock icon 登录新的微信账号
+  - 右键 Dock icon 登录新的微信账号
   - 命令行执行：`open -n /Applications/WeChat.app`
-- 链接类型消息增强
+- 消息处理增强
+  - 支持任意表情导出
+  - 支持二维码识别
   - 支持右键直接复制链接
   - 支持由系统默认浏览器直接打开
 - 重新打开应用无需手机认证
@@ -42,18 +45,24 @@
 
 ## 使用
 
-- `sudo make install` 安装或者更新动态库
-- `sudo make uninstall` 卸载动态库
-- open `WeChat.alfredworkflow` 安装 Alfred workflow
+```bash
+$ cd WeChatTweak-macOS
+$ sudo make install   # 安装或者更新动态库
+$ sudo make uninstall # 卸载动态库
+```
 
-## 文档
+## FAQ
 
-获取更多信息, 请到 [Wiki](https://github.com/Sunnyyoung/WeChatTweak-macOS/wiki)。
-
-## 依赖
-
-- [JRSwizzle](https://github.com/rentzsch/jrswizzle)
-- [insert_dylib](https://github.com/Tyilo/insert_dylib)
+1. 功能失效？  
+  请提交 **issue** 然后等待，或提交 **pull request** 一起发电。
+2. Issue 没有响应 or 回复？  
+  开源项目，用爱发电，耐心等。
+3. 兼容旧版本客户端吗？  
+  不，为了降低维护成本和保证更新速度，默认只支持最新 App Store 版本客户端。
+4. 安装出现错误：`Can not find the framework, please build first.`  
+  下载的是源码文件需要自行编译，开箱即用请点击：[![GitHub release (latest by date and asset)](https://img.shields.io/github/downloads/Sunnyyoung/WeChatTweak-macOS/latest/WeChatTweak-macOS.zip?label=下载&logo=wechat&style=social)](https://github.com/Sunnyyoung/WeChatTweak-macOS/releases/latest/download/WeChatTweak-macOS.zip)
+5. 会封号吗？  
+  在**只使用该工具**的情况下**没有**出现过封号/风险提示，若有**使用过其他同类工具**则有可能会出现封号/风险提示，因此风险自负。
 
 ## 参考
 
@@ -65,7 +74,7 @@
 
 This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
 
-[![Contributors](https://opencollective.com/WeChatTweak-macOS/contributors.svg?width=890&button=false)](/graphs/contributors)
+[![Contributors](https://opencollective.com/WeChatTweak-macOS/contributors.svg?width=890&button=false)](https://github.com/Sunnyyoung/WeChatTweak-macOS/graphs/contributors)
 
 ## 支持者
 
